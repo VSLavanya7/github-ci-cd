@@ -7,10 +7,8 @@ terraform {
       version = "~> 6.0"
     }
   }
+}
 
-  backend "s3" {
-    bucket = "github-ci-cd-statefile"
-    key    = "production/terraform.tfstate"
-    region = "**CHANGE_THIS_AWS_REGION**"
-  }
+provider "aws" {
+  region = "eu-central-1" # Change if needed
 }
