@@ -3,8 +3,11 @@ name: Terraform
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
+    branches:
+      - master
+  workflow_dispatch:
 
 permissions:
   id-token: write
@@ -16,7 +19,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: infra
+        working-directory: terraform
 
     steps:
       - name: Checkout
@@ -41,15 +44,4 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan
-        run: terraform plan
-Create this GitHub repository variable or secret:
-text
-AWS_GITHUB_ROLE_ARN
-Value:
-text
-arn:aws:iam::ACCOUNT_ID:role/wklab-lab-github-actions
-The workflow needs:
-text
-permissions:
-  id-token: write
-  contents: read
+        run: terraform planaws sts get-caller-identity
